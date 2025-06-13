@@ -1,0 +1,7 @@
+<h2>Edit Cover</h2>
+
+<form (ngSubmit)="updateCover()">
+  <label for="coverTitle">Cover Title:</label>
+  <input type="text" id="coverTitle" [(ngModel)]="cover.title" name="title" required>
+  <button type="submit">Update Cover</button>
+</form>

@@ -1,0 +1,17 @@
+<h2>Assign Cover to Artist</h2>
+
+<div>
+  <label for="artist">Select Artist:</label>
+  <select [(ngModel)]="selectedArtistId">
+    <option *ngFor="let artist of artists" [value]="artist.artistId">{{ artist.name }}</option>
+  </select>
+</div>
+
+<div>
+  <label for="cover">Select Cover:</label>
+  <select [(ngModel)]="selectedCoverId">
+    <option *ngFor="let cover of covers" [value]="cover.coverId">{{ cover.title }}</option>
+  </select>
+</div>
+
+<button (click)="assignCover()">Assign</button>

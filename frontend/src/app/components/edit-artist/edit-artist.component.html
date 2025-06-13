@@ -1,0 +1,7 @@
+<h2>Edit Artist</h2>
+
+<form (ngSubmit)="updateArtist()">
+  <label for="artistName">Artist Name:</label>
+  <input type="text" id="artistName" [(ngModel)]="artist.name" name="name" required>
+  <button type="submit">Update Artist</button>
+</form>

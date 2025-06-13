@@ -1,0 +1,11 @@
+<h2>Artist List</h2>
+
+<ul>
+  <li *ngFor="let artist of artists">
+    {{ artist.name }}
+    <button (click)="artist.artistId ? deleteArtist(artist.artistId) : null">Delete</button>
+  </li>
+</ul>
+
+
+<button [routerLink]="['/add-artist']">Add Artist</button>
