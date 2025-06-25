@@ -35,13 +35,19 @@ export class ArtistService {
     return this.http.put<void>(`${this.apiUrl}/${id}`, artist, { headers });
   }
 
+  updateAllArtists(artists: Artist[]): Observable<void> {
+    const headers = this.getAuthHeaders();
+    return this.http.put<void>(`${this.apiUrl}/bulk-update`, artists, { headers });
+  }
+
+
   deleteArtist(id: number): Observable<void> {
     const headers = this.getAuthHeaders();
     return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
   }
 
   private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('token');
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`

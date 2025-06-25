@@ -2,14 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ArtistService, Artist } from '../../services/artist.service';
+import { FormsModule } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-artist-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule], 
   templateUrl: './artist-list.component.html',
   styleUrls: ['./artist-list.component.css']
 })
+
 export class ArtistListComponent implements OnInit {
   artists: Artist[] = [];
 
@@ -30,6 +34,21 @@ export class ArtistListComponent implements OnInit {
       }
     });
   }
+
+  updateArtist(artist: Artist): void {
+    if (artist.artistId !== undefined) {
+      this.artistService.updateArtist(artist.artistId, artist).subscribe({
+        next: () => {
+          console.log(`Artist with ID ${artist.artistId} updated`);
+        },
+        error: (error: any) => {
+          console.error('Error updating artist:', error);
+        }
+      });
+    }
+  }
+
+
 
   deleteArtist(id: number | undefined): void {
     if (id !== undefined) {

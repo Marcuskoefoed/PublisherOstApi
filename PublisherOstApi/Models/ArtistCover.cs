@@ -1,12 +1,10 @@
-﻿namespace PublisherOstApi.Models
-{
-    public class ArtistCover
-    {
-        public int ArtistId { get; set; }
-        public int CoverId { get; set; }
+using PublisherOstApi.Models;
 
-        // Navigation Properties
-        public Artist Artist { get; set; } = null!;
-        public Cover Cover { get; set; } = null!;
-    }
+public class ArtistCover
+{
+    public int ArtistId { get; set; }
+    public Artist Artist { get; set; }     
+
+    public int CoverId { get; set; }
+    public Cover Cover { get; set; }      
 }
