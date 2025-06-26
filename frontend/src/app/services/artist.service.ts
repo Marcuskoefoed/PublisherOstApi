@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Artist {
@@ -16,41 +16,21 @@ export class ArtistService {
   constructor(private http: HttpClient) { }
 
   getArtists(): Observable<Artist[]> {
-    const headers = this.getAuthHeaders();
-    return this.http.get<Artist[]>(this.apiUrl, { headers });
+    return this.http.get<Artist[]>(this.apiUrl);
   }
 
   getArtist(id: number): Observable<Artist> {
-    const headers = this.getAuthHeaders();
-    return this.http.get<Artist>(`${this.apiUrl}/${id}`, { headers });
+    return this.http.get<Artist>(`${this.apiUrl}/${id}`);
   }
 
   addArtist(artist: Artist): Observable<Artist> {
-    const headers = this.getAuthHeaders();
-    return this.http.post<Artist>(this.apiUrl, artist, { headers });
+    return this.http.post<Artist>(this.apiUrl, artist);
   }
-
   updateArtist(id: number, artist: Artist): Observable<void> {
-    const headers = this.getAuthHeaders();
-    return this.http.put<void>(`${this.apiUrl}/${id}`, artist, { headers });
+    return this.http.put<void>(`${this.apiUrl}/${id}`, artist);
   }
-
-  updateAllArtists(artists: Artist[]): Observable<void> {
-    const headers = this.getAuthHeaders();
-    return this.http.put<void>(`${this.apiUrl}/bulk-update`, artists, { headers });
-  }
-
 
   deleteArtist(id: number): Observable<void> {
-    const headers = this.getAuthHeaders();
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers });
-  }
-
-  private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

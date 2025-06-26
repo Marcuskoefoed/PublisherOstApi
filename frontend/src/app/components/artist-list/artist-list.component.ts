@@ -4,18 +4,16 @@ import { RouterModule } from '@angular/router';
 import { ArtistService, Artist } from '../../services/artist.service';
 import { FormsModule } from '@angular/forms';
 
-
-
 @Component({
   selector: 'app-artist-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule], 
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './artist-list.component.html',
   styleUrls: ['./artist-list.component.css']
 })
-
 export class ArtistListComponent implements OnInit {
   artists: Artist[] = [];
+  editingArtistId: number | null = null; 
 
   constructor(private artistService: ArtistService) { }
 
@@ -36,19 +34,25 @@ export class ArtistListComponent implements OnInit {
   }
 
   updateArtist(artist: Artist): void {
-    if (artist.artistId !== undefined) {
-      this.artistService.updateArtist(artist.artistId, artist).subscribe({
-        next: () => {
-          console.log(`Artist with ID ${artist.artistId} updated`);
-        },
-        error: (error: any) => {
-          console.error('Error updating artist:', error);
-        }
-      });
+    if (artist.artistId === undefined || !artist.name.trim()) {
+      console.warn('Invalid artist data');
+      return;
     }
+
+    this.artistService.updateArtist(artist.artistId, artist).subscribe({
+      next: () => {
+        console.log(`Updated artist ${artist.artistId}`);
+        this.editingArtistId = null; 
+      },
+      error: (error) => {
+        console.error('Error updating artist:', error);
+      }
+    });
   }
 
-
+  editArtist(artist: Artist): void {
+    this.editingArtistId = artist.artistId ?? null;
+  }
 
   deleteArtist(id: number | undefined): void {
     if (id !== undefined) {

@@ -2,10 +2,13 @@
 
 <ul>
   <li *ngFor="let artist of artists">
-    {{ artist.name }}
+    <span *ngIf="editingArtistId !== artist.artistId">{{ artist.name }}</span>
+    <input *ngIf="editingArtistId === artist.artistId" [(ngModel)]="artist.name" />
+
     <button (click)="artist.artistId ? deleteArtist(artist.artistId) : null">Delete</button>
+    <button (click)="editArtist(artist)">Update</button>
+    <button (click)="updateArtist(artist)">Save</button>
   </li>
 </ul>
-
 
 <button [routerLink]="['/add-artist']">Add Artist</button>
